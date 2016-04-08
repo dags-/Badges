@@ -98,6 +98,11 @@ class UserBadgeService implements BadgeService {
     }
 
     @Override
+    public void removePatch(String identifier) {
+        playerPatches.remove(identifier);
+    }
+
+    @Override
     public void removePermissionBadge(String identifier) {
         remove(permissionBadges, identifier);
     }

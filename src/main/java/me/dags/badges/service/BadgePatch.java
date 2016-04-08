@@ -28,10 +28,20 @@ package me.dags.badges.service;
  * @author dags <dags@dags.me>
  */
 
+/**
+ * Holds multiple badges belonging to a user, and appends each of them to create a
+ * 'patch' of badges - this is what is finally displayed in chat.
+ */
 public interface BadgePatch extends Badge {
 
+    /**
+     * Add the given Badge to this BadgePatch
+     */
     void attachBadge(Badge badge);
 
+    /**
+     * Removes all currently assigned Badges from this BadgePatch
+     */
     void clear();
 
 }

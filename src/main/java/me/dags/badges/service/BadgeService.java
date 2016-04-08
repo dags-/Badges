@@ -34,20 +34,49 @@ import java.util.function.Consumer;
 
 public interface BadgeService {
 
+    /**
+     * Gets or creates a BadgePatch for the User
+     */
     BadgePatch getPatch(User user);
 
+    /**
+     * Creates a new BadgePatch and refreshes its contents for the given User
+     */
     BadgePatch recalculateUserPatch(User user);
 
+    /**
+     * Register a Consumer that gets called whenever the Service is reloaded - custom badges need to be re-registered, reload Consumers do not.
+     */
     void registerReloader(Consumer<BadgeService> consumer);
 
+    /**
+     * Register a Badge that is applicable to any User that has the correct permission
+     */
     void registerPermissionBadge(Badge badge);
 
+    /**
+     * Register a Badge that is specific to a particular User identifiable by the given String (a UUID as String)
+     */
     void registerIdentifierBadge(String identifier, Badge badge);
 
+    /**
+     * Remove a User's BadgePatch
+     */
+    void removePatch(String identifier);
+
+    /**
+     * Remove a permission badge of the given name/identifier
+     */
     void removePermissionBadge(String identifier);
 
+    /**
+     * Remove all badges assigned to a User of the given identifier
+     */
     void removeIdentifierBadges(String identifier);
 
+    /**
+     * Remove a Badge of matching the given badgeIdentifier from a User of the given Identifier
+     */
     void removeIdentifierBadges(String identifier, String badgeIdentifier);
 
 }

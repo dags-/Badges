@@ -31,12 +31,26 @@ import org.spongepowered.api.text.Text;
  * @author dags <dags@dags.me>
  */
 
+/**
+ * Represents an individual 'badge' on a given 'patch' of badges.
+ * The 'getText()' method should return some visible text representing the badge, and can include
+ * some other text actions to add additional info.
+ */
 public interface Badge {
 
+    /**
+     * Name of the badge
+     */
     String identifier();
 
+    /**
+     * Text representation of the badge that will be visible in chat (or where-ever)
+     */
     Text getText();
 
+    /**
+     * Checks whether the given user can where this particular Badge
+     */
     boolean canWear(User user);
 
 }

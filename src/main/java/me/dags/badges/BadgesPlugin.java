@@ -82,6 +82,7 @@ public class BadgesPlugin {
     @Listener
     public void onQuit(ClientConnectionEvent.Disconnect event) {
         service.removeIdentifierBadges(event.getTargetEntity().getIdentifier());
+        service.removePatch(event.getTargetEntity().getIdentifier());
     }
 
     Config config() {
