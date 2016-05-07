@@ -53,7 +53,7 @@ import java.util.Optional;
  * @author dags <dags@dags.me>
  */
 
-@Plugin(name = "Badges", id = "me.dags.badges", version = "1.0")
+@Plugin(name = "Badges", id = "badges", version = "1.0")
 public class BadgesPlugin {
 
     @Inject
@@ -75,7 +75,7 @@ public class BadgesPlugin {
     public void onChat(MessageChannelEvent.Chat event, @First Player sender) {
         if (config().prefixChat()) {
             BadgePatch patch = service.getPatch(sender);
-            event.setMessage(patch.getText().concat(event.getMessage()));
+            event.setMessage(patch.getText(), event.getMessage());
         }
     }
 
