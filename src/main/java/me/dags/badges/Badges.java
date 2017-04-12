@@ -1,4 +1,4 @@
-package me.dags.badges.redo;
+package me.dags.badges;
 
 import com.google.inject.Inject;
 import me.dags.commandbus.CommandBus;

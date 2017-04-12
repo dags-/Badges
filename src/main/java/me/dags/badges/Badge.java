@@ -1,4 +1,4 @@
-package me.dags.badges.redo;
+package me.dags.badges;
 
 import me.dags.textmu.MarkupSpec;
 import org.spongepowered.api.entity.living.player.User;
