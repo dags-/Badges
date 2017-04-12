@@ -1,0 +1,41 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+}
+
+group 'com.helion3'
+version '1.1-SNAPSHOT'
+def spongeAPI = '5.1.0'
+def spongeChannel = 'SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://repo.spongepowered.org/maven'
+    }
+    maven {
+        url 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    apply plugin: 'java'
+    compile "org.spongepowered:spongeapi:${spongeAPI}-${spongeChannel}"
+    compile 'com.github.dags-:CommandBus:1.6.0-RC4'
+    compile 'com.github.dags-:TextMU:0.1'
+}
+
+shadowJar {
+    dependencies {
+        include dependency('com.github.dags-:CommandBus')
+        include dependency('com.github.dags-:TextMU')
+    }
+
+    relocate 'me.dags.commandbus', 'me.dags.plots.libs.commandbus'
+    relocate 'me.dags.textmu', 'me.dags.plots.libs.textmu'
+
+    archiveName = "${baseName}-${version}-SpongeAPI-${spongeAPI}.jar"
+}
+
+jar {
+    archiveName = "${baseName}-${version}-SpongeAPI-${spongeAPI}.jar"
+}
