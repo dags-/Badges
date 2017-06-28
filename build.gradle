@@ -1,6 +1,7 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '1.2.4'
     id 'java'
+    id 'maven'
 }
 
 group 'me.dags'
@@ -31,7 +32,11 @@ shadowJar {
     }
     relocate 'me.dags.commandbus', 'me.dags.badges.commandbus'
     relocate 'me.dags.textmu', 'me.dags.badges.textmu'
-    archiveName = "${baseName}-${version}-SpongeAPI-${spongeAPI}.jar"
+    classifier = null
+}
+
+install.repositories.mavenInstaller.pom.whenConfigured { pom ->
+    pom.dependencies.removeAll {it.scope == "compile"}
 }
 
 jar.dependsOn shadowJar
