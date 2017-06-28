@@ -1,17 +1,15 @@
 package me.dags.badges;
 
-import com.google.common.collect.ImmutableList;
-import me.dags.textmu.MarkupSpec;
 import me.dags.textmu.MarkupTemplate;
-import ninja.leaping.configurate.ConfigurationNode;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.message.MessageChannelEvent;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -19,22 +17,14 @@ import java.util.stream.Collectors;
  */
 public class ChatListener {
 
-    private final List<Badge> badges;
+    private final Collection<Badge> badges;
     private final MarkupTemplate badge;
     private final MarkupTemplate patch;
 
-    ChatListener(ConfigurationNode node) {
-        String badgeTemplate = node.getNode("template", "badge").getString("{.}");
-        String patchTemplate = node.getNode("template", "patch").getString("\\[{badges:badge}] ");
-        ImmutableList.Builder<Badge> builder = ImmutableList.builder();
-        for (Map.Entry<Object, ? extends ConfigurationNode> entry : node.getNode("badges").getChildrenMap().entrySet()) {
-            String identifier = entry.getKey().toString();
-            String badge = entry.getValue().getString();
-            builder.add(new Badge(identifier, badge));
-        }
-        this.badge = MarkupSpec.create().template(badgeTemplate);
-        this.patch = MarkupSpec.create().template(patchTemplate);
-        this.badges = builder.build();
+    ChatListener(MarkupTemplate badge, MarkupTemplate patch) {
+        this.badges = Sponge.getRegistry().getAllOf(Badge.class);
+        this.badge = badge;
+        this.patch = patch;
     }
 
     @Listener(order = Order.LAST)

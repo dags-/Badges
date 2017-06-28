@@ -1,9 +1,10 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '1.2.4'
+    id 'java'
 }
 
 group 'me.dags'
-version '1.1-SNAPSHOT'
+version '1.2.0-SNAPSHOT'
 def spongeAPI = '5.1.0'
 def spongeChannel = 'SNAPSHOT'
 
@@ -18,9 +19,8 @@ repositories {
 }
 
 dependencies {
-    apply plugin: 'java'
-    compile "org.spongepowered:spongeapi:${spongeAPI}-${spongeChannel}"
-    compile 'com.github.dags-:CommandBus:1.6.0-RC4'
+    compileOnly "org.spongepowered:spongeapi:${spongeAPI}-${spongeChannel}"
+    compile 'com.github.dags-:CommandBus:1.8.0-RC1'
     compile 'com.github.dags-:TextMU:0.1'
 }
 
@@ -29,10 +29,8 @@ shadowJar {
         include dependency('com.github.dags-:CommandBus')
         include dependency('com.github.dags-:TextMU')
     }
-
-    relocate 'me.dags.commandbus', 'me.dags.plots.libs.commandbus'
-    relocate 'me.dags.textmu', 'me.dags.plots.libs.textmu'
-
+    relocate 'me.dags.commandbus', 'me.dags.badges.commandbus'
+    relocate 'me.dags.textmu', 'me.dags.badges.textmu'
     archiveName = "${baseName}-${version}-SpongeAPI-${spongeAPI}.jar"
 }
 
