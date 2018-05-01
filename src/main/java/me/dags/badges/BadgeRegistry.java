@@ -1,12 +1,11 @@
 package me.dags.badges;
 
 import com.google.common.collect.ImmutableList;
-import org.spongepowered.api.registry.AdditionalCatalogRegistryModule;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import org.spongepowered.api.registry.AdditionalCatalogRegistryModule;
 
 /**
  * @author dags <dags@dags.me>

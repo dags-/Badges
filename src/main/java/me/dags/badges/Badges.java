@@ -1,8 +1,14 @@
 package me.dags.badges;
 
 import com.google.inject.Inject;
+import java.io.IOException;
+import java.util.Map;
 import me.dags.commandbus.CommandBus;
-import me.dags.commandbus.annotation.*;
+import me.dags.commandbus.annotation.Command;
+import me.dags.commandbus.annotation.Description;
+import me.dags.commandbus.annotation.Join;
+import me.dags.commandbus.annotation.Permission;
+import me.dags.commandbus.annotation.Src;
 import me.dags.commandbus.fmt.Fmt;
 import me.dags.textmu.MarkupSpec;
 import me.dags.textmu.MarkupTemplate;
@@ -20,13 +26,10 @@ import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.scheduler.Task;
 
-import java.io.IOException;
-import java.util.Map;
-
 /**
  * @author dags <dags@dags.me>
  */
-@Plugin(id = "badges", name = "Badges", version = "1.2.0", description = "*_*")
+@Plugin(id = "badges", name = "Badges", version = "1.3.0", description = "*_*")
 public class Badges {
 
     private final ConfigurationLoader<CommentedConfigurationNode> loader;
@@ -80,9 +83,9 @@ public class Badges {
     }
 
     @Permission
-    @Command(alias = {"permission", "perm"}, parent = "badge create")
+    @Command("badge create perm <name> <badge>")
     @Description("Create a badge that is given to users with the permission 'badges.badge.<name>'")
-    public void createPerm(@Src CommandSource source, @Arg("name") String name, @Join("badge") String badge) {
+    public void createPerm(@Src CommandSource source, String name, @Join String badge) {
         ConfigurationNode config = loadConfig();
         config.getNode("permission_badges", name).setValue(badge);
         saveConfig(config);
@@ -92,9 +95,9 @@ public class Badges {
     }
 
     @Permission
-    @Command(alias = {"option", "opt"}, parent = "badge create")
+    @Command("badge create option <name> <badge>")
     @Description("Create a badge that is given to users with the option <name>")
-    public void createOption(@Src CommandSource source, @Arg("name") String name, @Join("badge") String badge) {
+    public void createOption(@Src CommandSource source, String name, @Join String badge) {
         ConfigurationNode config = loadConfig();
         config.getNode("option_badges", name).setValue(badge);
         saveConfig(config);
@@ -104,7 +107,7 @@ public class Badges {
     }
 
     @Permission
-    @Command(alias = "refresh", parent = "badge")
+    @Command("badge refresh")
     public void refresh(@Src CommandSource source) {
         Fmt.info("Reloading badges...").tell(source);
         reload(null);

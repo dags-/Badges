@@ -1,5 +1,8 @@
 package me.dags.badges;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import me.dags.textmu.MarkupTemplate;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
@@ -7,10 +10,6 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.message.MessageChannelEvent;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author dags <dags@dags.me>
