@@ -1,41 +1,35 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '1.2.4'
+    id 'com.github.johnrengelman.shadow' version '2.0.0'
     id 'java'
     id 'maven'
 }
 
 group 'me.dags'
-version '1.3.0-SNAPSHOT'
+version '1.3.1-SNAPSHOT'
 def spongeAPI = '7.1.0'
 def spongeChannel = 'SNAPSHOT'
 
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+configurations {
+    shade
+    compile.extendsFrom shade
 }
 
 repositories {
     mavenCentral()
-    maven {
-        url 'http://repo.spongepowered.org/maven'
-    }
-    maven {
-        url 'https://jitpack.io'
-    }
+    maven { url 'http://repo.spongepowered.org/maven' }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     compileOnly "org.spongepowered:spongeapi:${spongeAPI}-${spongeChannel}"
-    compile 'com.github.dags-:CommandBus:2.0.1'
-    compile 'com.github.dags-:TextMU:0.2'
+    shade 'com.github.dags-:CommandBus:2.0.1'
+    shade 'com.github.dags-:TextMU:0.1.1'
 }
 
 shadowJar {
-    dependencies {
-        include dependency('com.github.dags-:CommandBus')
-        include dependency('com.github.dags-:TextMU')
-    }
-    relocate 'me.dags.commandbus', 'me.dags.badges.commandbus'
-    relocate 'me.dags.textmu', 'me.dags.badges.textmu'
+    configurations = [project.configurations.shade]
+    relocate 'me.dags.commandbus.', 'me.dags.badges.commandbus.'
+    relocate 'me.dags.textmu.', 'me.dags.badges.textmu.'
     classifier = null
 }
 
